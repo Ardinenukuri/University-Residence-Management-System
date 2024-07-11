@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>University Residence Management System</title>
+  <script src="residencemanag.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <h1>University Residence Management System</h1>
+        <div id="dormRoom" class="card"></div>
+        <div id="apartment" class="card"></div>
+        <div id="student" class="card"></div>
+        <div id="maintenanceRequest" class="card"></div>
+    </div>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Create a dorm room
+            const dorm = new DormRoom("Dorm A", "123 University St", false, 200);
+            const dormDiv = document.getElementById("dormRoom");
+            dormDiv.innerHTML = `<h2>Dorm Room</h2>
+                <p>Name: ${dorm.name}</p>
+                <p>Address: ${dorm.address}</p>
+                <p>Size: ${dorm.size} sq ft</p>
+                <p>Rent: $${dorm.calculateRent()}</p>
+                <p>Occupied: ${dorm.isOccupied ? "Yes" : "No"}</p>`;
+
+            // Create an apartment
+            const apartment = new Apartment("Apartment B", "456 University Ave", false, 3);
+            const apartmentDiv = document.getElementById("apartment");
+            apartmentDiv.innerHTML = `<h2>Apartment</h2>
+                <p>Name: ${apartment.name}</p>
+                <p>Address: ${apartment.address}</p>
+                <p>Number of Bedrooms: ${apartment.numberOfBedrooms}</p>
+                <p>Rent: $${apartment.calculateRent()}</p>
+                <p>Occupied: ${apartment.isOccupied ? "Yes" : "No"}</p>`;
+
+            // Create a student and assign residence
+            const student = new Student("Ardine", "12345", "Female", null);
+            student.assignResidence(dorm);
+            const studentDiv = document.getElementById("student");
+            studentDiv.innerHTML = `<h2>Student</h2>
+                <p>Name: ${student.name}</p>
+                <p>Student ID: ${student.studentID}</p>
+                <p>Gender: ${student.gender}</p>
+                <p>Assigned Residence: ${student.residence.name}</p>`;
+
+            // Create a maintenance request
+            const maintenanceRequest = new MaintenanceRequest("Leaky faucet", student);
+            const maintenanceRequestDiv = document.getElementById("maintenanceRequest");
+            maintenanceRequestDiv.innerHTML = `<h2>Maintenance Request</h2>
+                <p>Description: ${maintenanceRequest.description}</p>
+                <p>Status: ${maintenanceRequest.status}</p>
+                <p>Submitted by: ${maintenanceRequest.student.name}</p>`;
+        });
+    </script>
+
+</body>
+</html>
